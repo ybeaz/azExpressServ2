@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script>
+    function Button00() {
+      console.info('Button00', Date());
+      document.querySelectorAll('.demo')[0].innerHTML = 'First onClick event listener ' + Date();
+      return;
+    }
+
+    setTimeout(() => {
+      const button01 = document.querySelectorAll('.button');
+      button01[1].addEventListener("click", function(){
+      console.info('Button01', Date());
+    });
+    }, 500);
+
+  </script>
+</head>
+<body>
+
+<h1>My JavaScript</h1>
+
+<button class="button" type="button" onclick="Button00()">
+  Button 00
+</button>
+
+<button class="button" type="button"">
+  Button 01
+</button>
+
+<p class="demo"></p>
+
+  <script>
+
+    const demo = document.querySelectorAll('.demo')
+    console.info('demo', demo)
+
+    const middleware = func => {
+      try {
+        return () => {
+          console.info('We add something else', Date());
+          return func();
+        }
+      }
+      catch (error) {
+        console.info('The error: ', error);
+      }
+    }
+    // getTime = middleware(getTime);
+    
+    const button02 = document.querySelectorAll('.button');
+    button02[0].addEventListener("click", function(){
+      console.info('We add 02 event listener', Date());
+    });
+
+
+
+  </script>
+</body>
+</html> 
