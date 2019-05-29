@@ -1,77 +1,26 @@
 const moment = require('moment')
+
+const promises = require('../shared/promises')
 const serviceFunc = require('../shared/serviceFunc')
-import * as Interfaces from '../shared/interfaces'
 
 const saveUserAnalytics2 = async (
-  req: Interfaces.ExpressRequestCustom, res: Interfaces.ExpressResponseCustom,
-  dbAccessData: Interfaces.DbAccessData) => {
+  req, res,
+  dbAccessData, data) => {
 
   const { MongoClient, dbName, DB_CONNECTION_STRING, collection } = dbAccessData
   let stage = 'inception'
   let result
 
-  MongoClient.connect(DB_CONNECTION_STRING, async (err, client) => {
+  MongoClient.connect(DB_CONNECTION_STRING, { useNewUrlParser: true }, async (err, client) => {
     if (err) throw err
     const db = client.db(dbName)
 
-    const findPromise = (sid: string): any => {
-      return new Promise((resolve, reject) => {
-
-        db.collection(collection)
-          .find({ utAnltSid: sid }, { projection: { _id: 0 }})
-          // .sort({ _id: -1 })
-          .toArray((errFind: any, resFind: any[]): any => {
-            errFind
-              ? reject(errFind)
-              : resolve(resFind)
-          })
-      })
-    }
-
-    const insertPromise = (query: any) => {
-      return new Promise((resolve, reject) => {
-        db.collection(collection)
-          .insertOne(
-            { ...query },
-            (errInsert, resInsert) => {
-              if (err) {
-                console.error(errInsert.message)
-                reject(errInsert.message)
-              }
-              // console.log('inserted record', resInsert.ops[0])
-              resolve(resInsert.ops[0])
-            })
-      })
-    }
-
-    const updatePromise = (query: any) => {
-      return new Promise((resolve, reject) => {
-        try {
-          db.collection(collection)
-            .updateOne(
-              { utAnltSid: query.utAnltSid },
-              { $set: { ...query } },
-              { upsert: true },
-              (errUpdate, resUpdate) => {
-                if (errUpdate) {
-                  console.error(errUpdate.message)
-                  reject(errUpdate.message)
-                }
-                // console.log('saveUserAnalytics (updatePromise) [3]', resUpdate)
-                resolve(resUpdate)
-              },
-            )} catch (errUpdatePromise) {
-          console.info('errUpdatePromise: ', errUpdatePromise)
-        }
-      })
-    }
-
     const { query: queryToProcess, body: bodyToProcess } = req
 
-    let data: any
-    let target: any[] = []
-    let utAnltSid: string = ''
-    let record0: any = {}
+    let data
+    let target = []
+    let utAnltSid = ''
+    let record0 = {}
     if (queryToProcess && JSON.stringify(queryToProcess) !== '{}') {
       data = queryToProcess
       // console.info('saveUserAnalytics get [2]', data)
@@ -90,11 +39,11 @@ const saveUserAnalytics2 = async (
 
     // Make request to the COllection from MongoDB about existing of the Domenentr
     // console.info('saveUserAnalytics [4]', { utAnltSid, queryToProcess, bodyToProcess })
-    const record = await findPromise(utAnltSid)
+    const record = await promises.findPromise(db, utAnltSid)
 
-    // console.info('saveUserAnalytics [5]', { target, data })
+    // console.info('saveUserAnalytics [5]', { record, target, data })
 
-    let dataNext: Interfaces.DataAnalytics = {
+    let dataNext = {
       initData: [{ ip: '' }],
       topics: [],
       target: [],
@@ -103,7 +52,7 @@ const saveUserAnalytics2 = async (
     // Case sessionStart
     if (record.length === 0) {
 
-      let ip: string = ''
+      let ip = ''
       if (req && req.headers !== undefined
         && req.headers['x-forwarded-for'] !== undefined) {
         ip = req.headers['x-forwarded-for']
@@ -162,7 +111,7 @@ const saveUserAnalytics2 = async (
       && dataNext.target[0].name === 'start'
     ) {
       // console.info('startUserSession [8]', { dataNext, query: req.query })
-      result = await updatePromise(dataNext)
+      result = await promises.updatePromise(db, dataNext)
       stage = 'First time startSession'
       // console.info('startUserSession [9]', { result })
     }
@@ -173,7 +122,7 @@ const saveUserAnalytics2 = async (
     ) {
       stage = 'Update user analytics'
       // console.info('Update user analytics [8]', { dataNext })
-      result = await updatePromise(dataNext)
+      result = await updatePromise(db, dataNext)
       // console.info('Update user analytics [9]', { result })
       result = result || 'Ok'
     }
