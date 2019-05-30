@@ -15,6 +15,12 @@ const typeDefs = gql`
     ip: String
   }
 
+  type EventData {
+    type: String
+    name: String
+    level: String
+  }
+
   type Target {
       level: String
       name: String
@@ -25,8 +31,9 @@ const typeDefs = gql`
     finish: String
     start: String
     initData: [InitData]
-    target: [Target]
     topics: [String]
+    eventData: [EventData]
+    target: [Target]
   }
 
   # The "Query" type is for Reading
@@ -35,8 +42,10 @@ const typeDefs = gql`
   }
 
   type SaveStatus {
-    status: Boolean
-    utAnltSid: String
+    n: Int
+    nModified: Int
+    ok: Int
+    upserted: Int
   }
 
   input InitDataInput {
@@ -50,6 +59,12 @@ const typeDefs = gql`
     ip: String
   }
 
+  input EventDataInput {
+    type: String
+    name: String
+    level: String
+  }
+
   input TargetInput {
       level: String
       name: String
@@ -60,8 +75,9 @@ const typeDefs = gql`
     finish: String
     start: String
     initData: [InitDataInput]
-    target: [TargetInput]
     topics: [String]
+    eventData: [EventDataInput]
+    target: [TargetInput]
   }
 
   # A "Mutation" type is for Creating, Updating and Deleting

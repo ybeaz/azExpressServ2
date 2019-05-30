@@ -16,15 +16,12 @@ const resolvers = {
      * @example {"query":"mutation{saveUserAnalytics2(webAnalytics:\"abc\"){status utAnltSid}}"}
      */
     saveUserAnalytics2: (parent, args, context, info) => {
-      const data = { ...args }
-      const req = {}
-      const res = {}
-      saveUserAnalytics2(req, res, dbAccessData, data)
+      const { ip } = context
+      const dataInput = { ...args, ip }
+      return saveUserAnalytics2(dbAccessData, dataInput)
 
-      console.info('resolvers->Mutation', { data })
-
-
-      return { status: true, utAnltSid: '55555' } // { status: true, utAnltSid: 'string' }
+      // console.info('resolvers->Mutation', { context })
+      // return { n, nModified, ok } // { status: true, utAnltSid: 'string' }
     },
   },
   Query: {
@@ -32,8 +29,8 @@ const resolvers = {
      * @example {"operationName":false,"variables":{},"query":"{getWebAnalytics2(dateFrom:\"2019\/05\/20\",dateTo:\"2019\/05\/30\"){utAnltSid,finish,start,initData{width,height,search,pathname,hostname,href,referrer,ip}target{level,name},topics}}"}
      */
     getWebAnalytics2: (parent, args, context, info) => {
-      const data = { ...args }
-      return getUserAnalytics2(dbAccessData, data)
+      const dataInput = { ...args }
+      return getUserAnalytics2(dbAccessData, dataInput)
     },
   },
 }

@@ -16,7 +16,7 @@ const getUserAnalytics2 = async (
 
   try {
     const result = await db.collection(collection)
-      .find({}, { projection: { _id: 0 }})
+      .find({}, { projection: { _id: 0 } })
       // .sort({ _id: -1 })
       .toArray()
 
@@ -50,7 +50,7 @@ const getUserAnalytics2 = async (
     // console.log('getUserAnalytics->find [10]', { resultNext })
   }
   catch (err) {
-    console.log('getUserAnalytics->err [10]', { err })
+    console.log('getUserAnalytics2->err [10]', { err })
   } 
   finally {
     client.close()

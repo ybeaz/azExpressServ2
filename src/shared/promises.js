@@ -1,4 +1,4 @@
-const findPromise = (db, sid) => {
+const findPromise = (db, collection, sid) => {
   return new Promise((resolve, reject) => {
 
     db.collection(collection)
@@ -12,7 +12,7 @@ const findPromise = (db, sid) => {
   })
 }
 
-const insertPromise = (db, query) => {
+const insertPromise = (db, collection, query) => {
   return new Promise((resolve, reject) => {
     db.collection(collection)
       .insertOne(
@@ -28,7 +28,7 @@ const insertPromise = (db, query) => {
   })
 }
 
-const updatePromise = (db, query) => {
+const updatePromise = (db, collection, query) => {
   return new Promise((resolve, reject) => {
     try {
       db.collection(collection)

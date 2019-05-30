@@ -58,8 +58,6 @@ app.use(bodyParser.raw({ type: 'application/vnd.custom-type' }))
 app.use(bodyParser.text({ type: 'text/*' }))
 app.use('/', express.static(path.join(__dirname, 'static')))
 
-
-
 const context = (headers, secrets) => {
   return {
     headers,
@@ -75,7 +73,10 @@ const schema = makeExecutableSchema({
 
 const apolloServer = new ApolloServer({
   schema,
-  context: { ...context, me: { firstname: 'Programmer', secondname: 'Roman' } },
+  context: async ({ req }) => {
+    const ip = serviceFunc.getIp(req)
+    return { ip }
+  },
 })
 
 apolloServer.applyMiddleware({ app, path: '/graphql' })
