@@ -18,10 +18,15 @@ const resolvers = {
     saveUserAnalytics2: (parent, args, context, info) => {
       const { ip } = context
       const dataInput = { ...args, ip }
+      console.info('resolvers->Mutation->saveUserAnalytics2', { dataInput })
       return saveUserAnalytics2(dbAccessData, dataInput)
-
-      // console.info('resolvers->Mutation', { context })
       // return { n, nModified, ok } // { status: true, utAnltSid: 'string' }
+    },
+    saveUserAnalytics3: (parent, args, context, info) => {
+      const { ip } = context
+      const dataInput = { ...args, ip }
+      console.info('resolvers->Mutation->saveUserAnalytics3', { dataInput })
+      return saveUserAnalytics2(dbAccessData, dataInput)
     },
   },
   Query: {
