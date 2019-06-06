@@ -257,8 +257,11 @@ const getAccessData = () => {
   // Setting variables for prod mode
   else {
     appPort = APP_PORT
-    DB_CONNECTION_STRING = 'mongodb://c3550_mdb_sitewindows_com:YeMmoDacnibex39@mongo1.c3550.h2,mongo2.c3550.h2,mongo3.c3550.h2/c3550_mdb_sitewindows_com?replicaSet=MongoReplica'
-    dbName = 'c3550_mdb_sitewindows_com'
+    DB_CONNECTION_STRING = 'mongodb://c3550_nd_userto_com:JaBdoDifgowun32@mongo1.c3550.h2,mongo2.c3550.h2,mongo3.c3550.h2/c3550_nd_userto_com?replicaSet=MongoReplica'
+    dbName = 'c3550_nd_userto_com'
+
+    // DB_CONNECTION_STRING = 'mongodb://c3550_mdb_sitewindows_com:YeMmoDacnibex39@mongo1.c3550.h2,mongo2.c3550.h2,mongo3.c3550.h2/c3550_mdb_sitewindows_com?replicaSet=MongoReplica'
+    // dbName = 'c3550_mdb_sitewindows_com'
     collection = 'webAnalytics2'
   }
 

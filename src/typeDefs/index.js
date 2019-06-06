@@ -49,31 +49,29 @@ const typeDefs = gql`
   }
 
   input InitDataInput {
-    width: String,
-    height: String,
+    width: Int,
+    height: Int,
     search: String,
     pathname: String,
     hostname: String,
     href: String,
     referrer: String,
-    ip: String
   }
 
   input EventDataInput {
     type: String
+    level: Int
     name: String
-    level: String
+    val: String
   }
 
   input TargetInput {
-      level: String
+      level: Int
       name: String
   }
 
   input WebAnalyticsInput {
     utAnltSid: String
-    finish: String
-    start: String
     initData: [InitDataInput]
     topics: [String]
     eventData: [EventDataInput]
@@ -83,6 +81,7 @@ const typeDefs = gql`
   # A "Mutation" type is for Creating, Updating and Deleting
   type Mutation {
     saveUserAnalytics2(webAnalytics: WebAnalyticsInput): SaveStatus
+    saveUserAnalytics3(webAnalytics: WebAnalyticsInput): SaveStatus
   }
 `
 module.exports = typeDefs
