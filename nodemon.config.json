@@ -1,0 +1,7 @@
+{
+  "verbose": true,
+  "ignore": ["*.test.js", "*.test.ts", "__test__/*"],
+  "watch": "src",
+  "exec": "npm run build+serve",
+  "delay": "10"
+}

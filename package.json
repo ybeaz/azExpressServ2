@@ -1,11 +1,20 @@
 {
-  "name": "ApolloJsServ01",
+  "name": "azExpressServ",
   "version": "1.0.0",
   "description": "",
-  "main": "Manual.js",
+  "main": "index.js",
   "scripts": {
-    "start": "opn http://localhost:8082/graphql & opn http://localhost:8082/user/John/Smith & node index.js",
-    "dev": "node index.js",
+    "copyDistFiles": "node ./tools/copyDistributionFiles.ts",
+    "givePermission": "node ./tools/givePermission.ts",
+    "prebuild": "rimraf dist",
+    "build": "yarn copyDistFiles && yarn tsc --build && yarn givePermission",
+    "serve": "NODE_ENV=development nodemon --trace-warnings --trace-deprecation --exec ./dist/index.js",
+    "build+serve": "yarn build && yarn serve",
+    "start": "NODE_ENV=production nodemon ./index.js",
+    "dev:start": "open-cli http://localhost:8082/user/John/Smith & concurrently --kill-others --raw --success=first 'nodemon --config nodemon.config.json --ext js,ts,tsc,.json'",
+    "dev": "concurrently --kill-others --raw --success=first 'nodemon --config nodemon.config.json --ext js,ts,tsc,.json'",
+    "startAndGraphQL": "opn http://localhost:8082/graphql & opn http://localhost:8082/user/John/Smith & node index.js",
+    "dev2": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -17,6 +26,7 @@
     "apollo-server": "^2.4.8",
     "apollo-server-express": "^2.4.8",
     "body-parser": "^1.18.3",
+    "concurrently": "^6.1.0",
     "cookie-parser": "^1.4.4",
     "cors": "^2.8.5",
     "express": "^4.16.4",
@@ -28,15 +38,18 @@
     "method-override": "^3.0.0",
     "moment": "^2.24.0",
     "mongodb": "^3.2.3",
+    "mongoose": "^5.12.9",
     "multer": "^1.4.1",
+    "ncp": "^2.0.0",
     "nocache": "^2.0.0",
+    "nodemon": "^2.0.7",
+    "open": "^8.0.8",
     "pug": "^2.0.3",
     "ts-node-dev": "^1.0.0-pre.39",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
     "copyfiles": "^2.1.0",
-    "opn-cli": "^4.1.0",
     "tslint": "^5.16.0",
     "typescript": "^3.4.5"
   }

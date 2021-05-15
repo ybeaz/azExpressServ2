@@ -1,17 +1,16 @@
-const { gql } = require('apollo-server-express')
+const { gql } = require("apollo-server-express");
 
 // Type definitions define the "shape" of your data and specify
 // which ways the data can be fetched from the GraphQL server.
 const typeDefs = gql`
-
   type InitData {
-    width: String,
-    height: String,
-    search: String,
-    pathname: String,
-    hostname: String,
-    href: String,
-    referrer: String,
+    width: String
+    height: String
+    search: String
+    pathname: String
+    hostname: String
+    href: String
+    referrer: String
     ip: String
   }
 
@@ -22,8 +21,8 @@ const typeDefs = gql`
   }
 
   type Target {
-      level: String
-      name: String
+    level: String
+    name: String
   }
 
   type WebAnalytics {
@@ -49,13 +48,13 @@ const typeDefs = gql`
   }
 
   input InitDataInput {
-    width: Int,
-    height: Int,
-    search: String,
-    pathname: String,
-    hostname: String,
-    href: String,
-    referrer: String,
+    width: Int
+    height: Int
+    search: String
+    pathname: String
+    hostname: String
+    href: String
+    referrer: String
   }
 
   input EventDataInput {
@@ -66,8 +65,8 @@ const typeDefs = gql`
   }
 
   input TargetInput {
-      level: Int
-      name: String
+    level: Int
+    name: String
   }
 
   input WebAnalyticsInput {
@@ -80,8 +79,7 @@ const typeDefs = gql`
 
   # A "Mutation" type is for Creating, Updating and Deleting
   type Mutation {
-    saveUserAnalytics2(webAnalytics: WebAnalyticsInput): SaveStatus
     saveUserAnalytics3(webAnalytics: WebAnalyticsInput): SaveStatus
   }
-`
-module.exports = typeDefs
+`;
+module.exports = typeDefs;

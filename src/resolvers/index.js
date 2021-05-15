@@ -1,32 +1,31 @@
+const { MongoClient } = require("mongodb");
 
-const { MongoClient } = require('mongodb')
+import { getAccessData } from "../shared/getAccessData";
+const getUserAnalytics2 = require("../controllers/getUserAnalytics2");
+const saveUserAnalytics3 = require("../controllers/saveUserAnalytics3");
 
-const serviceFunc = require('../shared/serviceFunc')
-const getUserAnalytics2 = require('../controllers/getUserAnalytics2')
-const saveUserAnalytics2 = require('../controllers/saveUserAnalytics2')
-
-let dbAccessData = serviceFunc.getAccessData()
-dbAccessData = { ...dbAccessData, MongoClient }
+let dbAccessData = getAccessData();
+dbAccessData = { ...dbAccessData, MongoClient };
 
 // Resolvers define the technique for fetching the types in the
 // schema.  We'll retrieve books from the "books" array above.
 const resolvers = {
   Mutation: {
-    /**
+    /** Remove after 2021-05-17
      * @example {"query":"mutation{saveUserAnalytics2(webAnalytics:\"abc\"){status utAnltSid}}"}
      */
-    saveUserAnalytics2: (parent, args, context, info) => {
-      const { ip } = context
-      const dataInput = { ...args, ip }
-      console.info('resolvers->Mutation->saveUserAnalytics2', { dataInput })
-      return saveUserAnalytics2(dbAccessData, dataInput)
-      // return { n, nModified, ok } // { status: true, utAnltSid: 'string' }
-    },
+    // saveUserAnalytics2: (parent, args, context, info) => {
+    //   const { ip } = context
+    //   const dataInput = { ...args, ip }
+    //   console.info('resolvers->Mutation->saveUserAnalytics2', { dataInput })
+    //   return saveUserAnalytics2(dbAccessData, dataInput)
+    //   // return { n, nModified, ok } // { status: true, utAnltSid: 'string' }
+    // },
     saveUserAnalytics3: (parent, args, context, info) => {
-      const { ip } = context
-      const dataInput = { ...args, ip }
-      console.info('resolvers->Mutation->saveUserAnalytics3', { dataInput })
-      return saveUserAnalytics2(dbAccessData, dataInput)
+      const { ip } = context;
+      const dataInput = { ...args, ip };
+      console.info("resolvers->Mutation->saveUserAnalytics3", { dataInput });
+      return saveUserAnalytics3(dbAccessData, dataInput);
     },
   },
   Query: {
@@ -34,10 +33,10 @@ const resolvers = {
      * @example {"operationName":false,"variables":{},"query":"{getWebAnalytics2(dateFrom:\"2019\/05\/20\",dateTo:\"2019\/05\/30\"){utAnltSid,finish,start,initData{width,height,search,pathname,hostname,href,referrer,ip}target{level,name},topics}}"}
      */
     getWebAnalytics2: (parent, args, context, info) => {
-      const dataInput = { ...args }
-      return getUserAnalytics2(dbAccessData, dataInput)
+      const dataInput = { ...args };
+      return getUserAnalytics2(dbAccessData, dataInput);
     },
   },
-}
+};
 
-module.exports = resolvers
+module.exports = resolvers;
