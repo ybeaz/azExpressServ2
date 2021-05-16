@@ -13,8 +13,9 @@ const { ApolloServer } = require("apollo-server-express");
 const { makeExecutableSchema } = require("graphql-tools");
 // graphql-tools combines a schema string with resolvers.
 
+import { getConnectedMogoose } from './shared/getConnectedMogoose'
 import { getAccessData } from './shared/getAccessData'
-const serviceFunc = require("./shared/serviceFunc");
+import { getIp } from "./shared/getIp";
 const router = require("./routes/index");
 const logging = require("./shared/logging");
 const typeDefs = require("./typeDefs/index");
@@ -65,6 +66,7 @@ app.use(bodyParser.raw({ type: "application/vnd.custom-type" }));
 // parse an HTML body as a string
 app.use(bodyParser.text({ type: "text/*" }));
 app.use("/", express.static(path.join(__dirname, "static")));
+getConnectedMogoose()
 
 const context = (headers, secrets) => {
   return {
@@ -82,7 +84,7 @@ const schema = makeExecutableSchema({
 const apolloServer = new ApolloServer({
   schema,
   context: async ({ req }) => {
-    const ip = serviceFunc.getIp(req);
+    const ip = getIp(req);
     return { ip };
   },
 });

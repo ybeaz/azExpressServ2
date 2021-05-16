@@ -1,8 +1,8 @@
 const { MongoClient } = require("mongodb");
 
 import { getAccessData } from "../shared/getAccessData";
-const getUserAnalytics2 = require("../controllers/getUserAnalytics2");
-const saveUserAnalytics3 = require("../controllers/saveUserAnalytics3");
+import { getUserAnalyticsService } from "../services/getUserAnalyticsService";
+import { saveUserAnalyticsService } from "../services/saveUserAnalyticsService";
 
 let dbAccessData = getAccessData();
 dbAccessData = { ...dbAccessData, MongoClient };
@@ -11,30 +11,25 @@ dbAccessData = { ...dbAccessData, MongoClient };
 // schema.  We'll retrieve books from the "books" array above.
 const resolvers = {
   Mutation: {
-    /** Remove after 2021-05-17
-     * @example {"query":"mutation{saveUserAnalytics2(webAnalytics:\"abc\"){status utAnltSid}}"}
+    /**
+     * @example "query": "mutation SaveUserAnalytics($webAnalyticsInput: WebAnalyticsInput!){saveUserAnalytics(webAnalyticsInput: $webAnalyticsInput){ n }}"
      */
-    // saveUserAnalytics2: (parent, args, context, info) => {
-    //   const { ip } = context
-    //   const dataInput = { ...args, ip }
-    //   console.info('resolvers->Mutation->saveUserAnalytics2', { dataInput })
-    //   return saveUserAnalytics2(dbAccessData, dataInput)
-    //   // return { n, nModified, ok } // { status: true, utAnltSid: 'string' }
-    // },
-    saveUserAnalytics3: (parent, args, context, info) => {
+    saveUserAnalytics: (parent, args, context, info) => {
       const { ip } = context;
       const dataInput = { ...args, ip };
-      console.info("resolvers->Mutation->saveUserAnalytics3", { dataInput });
-      return saveUserAnalytics3(dbAccessData, dataInput);
+      console.info("resolvers->Mutation->saveUserAnalytics [20]", {
+        dataInput,
+      });
+      return saveUserAnalyticsService(dbAccessData, dataInput);
     },
   },
   Query: {
     /**
-     * @example {"operationName":false,"variables":{},"query":"{getWebAnalytics2(dateFrom:\"2019\/05\/20\",dateTo:\"2019\/05\/30\"){utAnltSid,finish,start,initData{width,height,search,pathname,hostname,href,referrer,ip}target{level,name},topics}}"}
+     * @example {"operationName":false,"variables":{},"query":"{getWebAnalytics(dateFrom:\"2019\/05\/20\",dateTo:\"2019\/05\/30\"){finish,start,initData{width,height,search,pathname,hostname,href,referrer,ip}target{level,name},topics}}"}
      */
-    getWebAnalytics2: (parent, args, context, info) => {
+    getWebAnalytics: (parent, args, context, info) => {
       const dataInput = { ...args };
-      return getUserAnalytics2(dbAccessData, dataInput);
+      return getUserAnalyticsService(dbAccessData, dataInput);
     },
   },
 };

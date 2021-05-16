@@ -1,8 +1,9 @@
 const moment = require("moment");
 
-const serviceFunc = require("../shared/serviceFunc");
+import { WebAnalytics } from "../models/index.models";
+import { getArrToSave } from "../shared/getArrToSave";
 
-const saveUserAnalytics3 = async (dbAccessData, dataInput) => {
+export const saveUserAnalyticsService = async (dbAccessData, dataInput) => {
   const { MongoClient, dbName, DB_CONNECTION_STRING, collection } =
     dbAccessData;
 
@@ -18,7 +19,7 @@ const saveUserAnalytics3 = async (dbAccessData, dataInput) => {
   let record0 = {};
   let resultUpdate = {};
 
-  console.info("saveUserAnalytics3 [20]", { dbName, collection });
+  console.info("saveUserAnalytics [20]", { dbName, collection });
 
   // Make request to the collection from MongoDB about existing of the entry
   let record = [];
@@ -29,7 +30,7 @@ const saveUserAnalytics3 = async (dbAccessData, dataInput) => {
       // .sort({ _id: -1 })
       .toArray();
   } catch (err) {
-    console.log("saveUserAnalytics3->err find [1]", { err });
+    console.log("saveUserAnalytics->err find [1]", { err });
   }
 
   // console.info('saveUserAnalytics [5]', { record, target, data, db, utAnltSid })
@@ -79,12 +80,7 @@ const saveUserAnalytics3 = async (dbAccessData, dataInput) => {
   ];
   fieldsToSave.forEach((item) => {
     const { name, mode, prop } = item;
-    dataNext[name] = serviceFunc.getArrToSave2(
-      record0[name],
-      data[name],
-      mode,
-      prop
-    );
+    dataNext[name] = getArrToSave(record0[name], data[name], mode, prop);
   });
 
   // console.info('saveUserAnalytics [7]', { 'dataNext.target': dataNext.target, 'dataNext': dataNext, 'data': data, 'record': record })
@@ -98,7 +94,7 @@ const saveUserAnalytics3 = async (dbAccessData, dataInput) => {
         { upsert: true }
       );
   } catch (err) {
-    console.log("saveUserAnalytics3->err update [1]", { err });
+    console.log("->err update [1]", { err });
   }
 
   client.close();
@@ -109,5 +105,3 @@ const saveUserAnalytics3 = async (dbAccessData, dataInput) => {
   const upsertedLen = upserted ? upserted.length : 0;
   return { n, nModified, ok, upserted: upsertedLen };
 };
-
-module.exports = saveUserAnalytics3;
