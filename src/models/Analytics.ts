@@ -15,6 +15,11 @@ export const Analytics = new mongoose.Schema({
     required: true,
     default: undefined
   },
+  updateDate: {
+    type: Number,
+    required: true,
+    default: undefined
+  },
   initData: {
     type: Object,
     required: false,

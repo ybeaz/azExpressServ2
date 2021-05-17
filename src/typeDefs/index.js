@@ -33,7 +33,7 @@ const typeDefs = gql`
     initData: InitData
     topics: [String]
     events: [Event]
-    target: [Target]
+    targets: [Target]
   }
 
   # The "Query" type is for Reading
@@ -70,6 +70,7 @@ const typeDefs = gql`
   }
 
   input AnalyticsInput {
+    analyticsID: String
     hash256: String
     initData: InitDataInput
     topic: String
@@ -79,7 +80,7 @@ const typeDefs = gql`
 
   # A "Mutation" type is for Creating, Updating and Deleting
   type Mutation {
-    saveAnalytics(analyticsInput: AnalyticsInput): SaveStatus
+    saveAnalytics(analyticsInput: AnalyticsInput): Analytics
   }
 `;
 module.exports = typeDefs;

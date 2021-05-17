@@ -5,8 +5,6 @@ export const getAccessData = () => {
   let dbName
   let collection
 
-  console.info('getAccessData [8]', { APP_PORT })
-
   // Setting variables for dev mode
   if (APP_PORT === undefined) {
     appPort = 8082
@@ -25,6 +23,5 @@ export const getAccessData = () => {
     collection = 'analytics'
   }
 
-  console.info('getAccessData [28]', { dbName, DB_CONNECTION_STRING, collection, appPort })
   return { dbName, DB_CONNECTION_STRING, collection, appPort }
 }

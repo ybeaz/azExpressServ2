@@ -11,8 +11,6 @@ export const getConnectedMogoose = async () => {
   try {
     const { DB_CONNECTION_STRING } = getAccessData()
 
-    console.info('getConnectedMogoose [14]', { DB_CONNECTION_STRING })
-
     const mongooseOptions = {
       useNewUrlParser: true,
       useUnifiedTopology: true,

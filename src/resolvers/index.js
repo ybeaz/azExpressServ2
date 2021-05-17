@@ -17,7 +17,7 @@ const resolvers = {
     saveAnalytics: (parent, args, context, info) => {
       const { ip } = context;
       const dataInput = { ...args, ip };
-      return saveAnalyticsService(dataInput, dbAccessData);
+      return saveAnalyticsService(dataInput);
     },
   },
   Query: {
