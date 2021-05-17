@@ -1,9 +1,41 @@
 const moment = require("moment");
+import { nanoid } from "nanoid";
 
-import { WebAnalytics } from "../models/index.models";
+import { models } from "../models/index.models";
+import { getAssetHash } from "../shared/getAssetHash";
 import { getArrToSave } from "../shared/getArrToSave";
 
-export const saveUserAnalyticsService = async (dbAccessData, dataInput) => {
+// Stopped here
+
+export const saveAnalyticsService = async (dataInput, dbAccessData) => {
+  const analyticsID = nanoid();
+  const creationDate = +new Date();
+  const hash256 = getAssetHash(dataInput);
+  console.info("saveAnalyticsService [10]", {
+    dataInput,
+    hash256,
+    analyticsID,
+  });
+
+  const set = { analyticsID, creationDate };
+
+  const resUpdate = await models.analytics // .find({}).exec();
+    .updateMany(
+      { analyticsID },
+      {
+        $set: set,
+      },
+      { upsert: true }
+    )
+    .exec();
+
+  const resFind = await models.analytics.find({}).exec();
+
+  console.info("saveAnalyticsService [31]", {
+    resUpdate,
+    resFind,
+  });
+
   const { MongoClient, dbName, DB_CONNECTION_STRING, collection } =
     dbAccessData;
 
@@ -13,7 +45,23 @@ export const saveUserAnalyticsService = async (dbAccessData, dataInput) => {
   });
   const db = client.db(dbName);
 
-  const { webAnalytics: data, ip } = dataInput;
+  let record10;
+  try {
+    record10 = await db
+      .collection("analytics")
+      .find({})
+      // .sort({ _id: -1 })
+      .toArray();
+  } catch (err) {
+    console.log("saveUserAnalytics->err find [1]", { err });
+  }
+
+  console.info("saveAnalyticsService [54]", {
+    record10,
+    dbName,
+  });
+
+  const { analytics: data, ip } = dataInput;
   let utAnltSid = data.utAnltSid;
   let target = data.target;
   let record0 = {};

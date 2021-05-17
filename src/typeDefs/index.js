@@ -25,7 +25,7 @@ const typeDefs = gql`
     name: String
   }
 
-  type WebAnalytics {
+  type Analytics {
     analyticsID: String
     hash256: String
     createDate: Float
@@ -38,7 +38,7 @@ const typeDefs = gql`
 
   # The "Query" type is for Reading
   type Query {
-    getWebAnalytics(dateFrom: Float, dateTo: Float): [WebAnalytics]
+    getAnalytics(dateFrom: Float, dateTo: Float): [Analytics]
   }
 
   type SaveStatus {
@@ -69,9 +69,8 @@ const typeDefs = gql`
     name: String
   }
 
-  input WebAnalyticsInput {
+  input AnalyticsInput {
     hash256: String
-    currentDate: Float
     initData: InitDataInput
     topic: String
     event: EventInput
@@ -80,7 +79,7 @@ const typeDefs = gql`
 
   # A "Mutation" type is for Creating, Updating and Deleting
   type Mutation {
-    saveUserAnalytics(webAnalyticsInput: WebAnalyticsInput): SaveStatus
+    saveAnalytics(analyticsInput: AnalyticsInput): SaveStatus
   }
 `;
 module.exports = typeDefs;

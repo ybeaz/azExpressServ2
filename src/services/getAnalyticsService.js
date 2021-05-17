@@ -1,7 +1,7 @@
-import { WebAnalytics } from "../models/index.models";
+import { models } from "../models/index.models";
 
 // eslint-disable-next-line import/prefer-default-export
-export const getUserAnalyticsService = async (dbAccessData, data) => {
+export const getAnalyticsService = async (dbAccessData, data) => {
   const { dateFrom: dateFromStr, dateTo: dateToStr } = data;
 
   // console.log('getUserAnalytics->find [0]', { dateFrom, dateTo, dateFromStr, dateToStr, data })

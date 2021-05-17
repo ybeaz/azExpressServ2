@@ -1,8 +1,8 @@
 const { MongoClient } = require("mongodb");
 
 import { getAccessData } from "../shared/getAccessData";
-import { getUserAnalyticsService } from "../services/getUserAnalyticsService";
-import { saveUserAnalyticsService } from "../services/saveUserAnalyticsService";
+import { getAnalyticsService } from "../services/getAnalyticsService";
+import { saveAnalyticsService } from "../services/saveAnalyticsService";
 
 let dbAccessData = getAccessData();
 dbAccessData = { ...dbAccessData, MongoClient };
@@ -12,24 +12,21 @@ dbAccessData = { ...dbAccessData, MongoClient };
 const resolvers = {
   Mutation: {
     /**
-     * @example "query": "mutation SaveUserAnalytics($webAnalyticsInput: WebAnalyticsInput!){saveUserAnalytics(webAnalyticsInput: $webAnalyticsInput){ n }}"
+     * @example "query": "mutation SaveUserAnalytics($analyticsInput: AnalyticsInput!){saveUserAnalytics(analyticsInput: $analyticsInput){ n }}"
      */
-    saveUserAnalytics: (parent, args, context, info) => {
+    saveAnalytics: (parent, args, context, info) => {
       const { ip } = context;
       const dataInput = { ...args, ip };
-      console.info("resolvers->Mutation->saveUserAnalytics [20]", {
-        dataInput,
-      });
-      return saveUserAnalyticsService(dbAccessData, dataInput);
+      return saveAnalyticsService(dataInput, dbAccessData);
     },
   },
   Query: {
     /**
-     * @example {"operationName":false,"variables":{},"query":"{getWebAnalytics(dateFrom:\"2019\/05\/20\",dateTo:\"2019\/05\/30\"){finish,start,initData{width,height,search,pathname,hostname,href,referrer,ip}target{level,name},topics}}"}
+     * @example {"operationName":false,"variables":{},"query":"{getAnalytics(dateFrom:\"2019\/05\/20\",dateTo:\"2019\/05\/30\"){finish,start,initData{width,height,search,pathname,hostname,href,referrer,ip}target{level,name},topics}}"}
      */
-    getWebAnalytics: (parent, args, context, info) => {
+    getAnalytics: (parent, args, context, info) => {
       const dataInput = { ...args };
-      return getUserAnalyticsService(dbAccessData, dataInput);
+      return getAnalyticsService(dbAccessData, dataInput);
     },
   },
 };
