@@ -17,4 +17,8 @@ export const Event = new mongoose.Schema({
     type: String,
     required: true,
   },
+  pathname: {
+    type: String,
+    required: true,
+  },
 })

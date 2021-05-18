@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 
+import { Topic } from './Topic'
 import { Event } from './Event'
 import { Target } from './Target'
 
@@ -26,7 +27,7 @@ export const Analytics = new mongoose.Schema({
     default: undefined,
   },
   topics: {
-    type: [String],
+    type: [Topic],
     default: undefined,
   },
   events: {

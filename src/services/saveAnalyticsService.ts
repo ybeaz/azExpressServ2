@@ -28,7 +28,6 @@ export const saveAnalyticsService = async dataInput => {
 
     const {
       analyticsID: analyticsIDFound,
-      initData = {},
       topics = [],
       events = [],
       targets = [],
@@ -58,9 +57,9 @@ export const saveAnalyticsService = async dataInput => {
      */
     if (analyticsIDInput && analyticsIDFound && topicInput) {
       analyticsID = analyticsIDInput
-      const topicsUniq = [...new Set([topicInput, ...topics])]
+
       set = {
-        topics: topicsUniq,
+        topics: [topicInput, ...topics],
       }
       reqCase = 'topics'
     }
