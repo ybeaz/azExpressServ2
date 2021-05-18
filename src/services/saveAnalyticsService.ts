@@ -1,13 +1,9 @@
-const moment = require('moment')
 import { nanoid } from 'nanoid'
 
 import { getErrorInfo } from '../shared/getErrorInfo'
 import { getUniqArrBy } from '../shared/getUniqArrBy'
 import { models } from '../models/index.models'
 import { getAssetHash } from '../shared/getAssetHash'
-import { getArrToSave } from '../shared/getArrToSave'
-
-// Stopped here
 
 export const saveAnalyticsService = async dataInput => {
   let {
