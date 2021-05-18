@@ -1,4 +1,4 @@
-const { gql } = require("apollo-server-express");
+const { gql } = require('apollo-server-express')
 
 // Type definitions define the "shape" of your data and specify
 // which ways the data can be fetched from the GraphQL server.
@@ -28,8 +28,8 @@ const typeDefs = gql`
   type Analytics {
     analyticsID: String
     hash256: String
-    createDate: Float
-    updateDate: Float
+    dateCreate: Float
+    dateUpdate: Float
     initData: InitData
     topics: [String]
     events: [Event]
@@ -82,5 +82,5 @@ const typeDefs = gql`
   type Mutation {
     saveAnalytics(analyticsInput: AnalyticsInput): Analytics
   }
-`;
-module.exports = typeDefs;
+`
+module.exports = typeDefs

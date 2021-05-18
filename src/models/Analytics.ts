@@ -8,33 +8,33 @@ export const Analytics = new mongoose.Schema({
   analyticsID: {
     type: String,
     required: true,
-    default: undefined
+    default: undefined,
   },
-  creationDate: {
+  dateCreate: {
     type: Number,
     required: true,
-    default: undefined
+    default: undefined,
   },
-  updateDate: {
+  dateUpdate: {
     type: Number,
     required: true,
-    default: undefined
+    default: undefined,
   },
   initData: {
     type: Object,
     required: false,
-    default: undefined
+    default: undefined,
   },
   topics: {
     type: [String],
-    default: undefined
+    default: undefined,
   },
   events: {
     type: [Event],
-    default: undefined
+    default: undefined,
   },
   targets: {
     type: [Target],
-    default: undefined
+    default: undefined,
   },
 })
