@@ -5,7 +5,7 @@ import { getUniqArrBy } from '../shared/getUniqArrBy'
 import { models } from '../models/index.models'
 import { getAssetHash } from '../shared/getAssetHash'
 
-export const saveAnalyticsService = async dataInput => {
+export const saveAnalyticsService: Function = async dataInput => {
   let {
     analyticsInput: {
       analyticsID: analyticsIDInput,
