@@ -49,13 +49,14 @@ export const saveAnalyticsService: Function = async (
     }
 
     /**
-     * @description Case III. Update events
+     * @description Case II. Update events
      */
     if (analyticsIDInput && analyticsIDFound && eventInput) {
       analyticsID = analyticsIDInput
+      const event = { ...eventInput, dateCreate: dateCurrent }
       set = {
         ...set,
-        events: [eventInput, ...events],
+        events: [event, ...events],
       }
       reqCase = 'events'
     }

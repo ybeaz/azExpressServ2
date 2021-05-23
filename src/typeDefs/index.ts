@@ -15,6 +15,7 @@ export const typeDefs = gql`
   }
 
   type Event {
+    dateCreate: Float
     type: String
     name: String
     value: String

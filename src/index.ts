@@ -94,7 +94,7 @@ const apolloServer = new ApolloServer({
 
 apolloServer.applyMiddleware({ app, path: '/graphql' })
 
-const { appPort } = getAccessData()
-app.listen({ port: appPort }, () => {
-  console.log(`Express+Apollo Server on http://localhost:${appPort}/graphql`)
+const { APP_PORT } = getAccessData()
+app.listen({ port: APP_PORT }, () => {
+  console.log(`Express+Apollo Server on http://localhost:${APP_PORT}/graphql`)
 })
