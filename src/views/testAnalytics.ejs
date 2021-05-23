@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>azClient App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<script>
+  function button00() {
+    console.info('button00', Date());
+    document.querySelectorAll('.demo')[0].innerHTML = 'First onClick event listener ' + Date();
+    return;
+  }
+  function checkBox00() {
+    console.info('checkBox00', Date());
+    return;
+  }
+  function inputText00() {
+    console.info('inputText00', Date());
+    return;
+  }
+  function change00() {
+    console.info('select00', Date());
+    return;
+  }
+
+  setTimeout(() => {
+    const button01 = document.querySelectorAll('.button');
+    button01[1].addEventListener("click", function () {
+      console.info('Button01', Date());
+    });
+    const checkBox01 = document.querySelectorAll('.checkbox');
+    checkBox01[1].addEventListener("change", function () {
+      console.info('checkBox01', Date());
+    });
+    const inputText01 = document.querySelectorAll('.inputText');
+    inputText01[1].addEventListener("input", function () {
+      console.info('inputText01', Date());
+    });
+  }, 500);
+
+</script>
+
+<body>
+
+  <h1 class="someH1Class az_{'type':'mouseout','name':'h1: utAzTitle','value':'1x1=1','level':1}">My JavaScript</h1>
+  <p class="className">Some text</p>
+
+  <button id="button-00" class="button az_{'type':'click','name':'button00','level':2}" type="button"
+    onclick="button00()">
+    Button 00
+  </button>
+  <button class="button az_{'type':'click','name':'button01','level':2}" type="button"">Button 01</button>
+    
+    <input class=" checkbox az_{'type':'change','name':'checkbox00'}" type="checkbox" onchange="checkBox00()" />
+  <input class="checkbox az_{'type':'change','name':'checkbox01'}" type="checkbox" />
+
+  <input class="inputText az_{'type':'blur','name':'input01'}" type="text" oninput="inputText00()" />
+  <input class="inputText az_{'type':'mouseleave','name':'input02'}" type="text" />
+
+  <select class="az_{'type':'change','name':'select00_3','level':3}" onchange="change00(value)">
+    <option value="volvo">Volvo</option>
+    <option value="saab">Saab</option>
+    <option value="mercedes">Mercedes</option>
+    <option value="audi">Audi</option>
+  </select>
+
+  <!-- mouseleave blur -->
+  <p class="demo az_{'type':'mouseleave','name':'p: utAzTopic_abc_4','value':'2x2=4','level':3}"
+    style="cursor: pointer">
+    utAzTopic_abc_4</p>
+
+
+  <script src="/assets/azClient.min.js"></script>
+
+</body>
+
+</html>
