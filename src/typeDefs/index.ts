@@ -2,7 +2,7 @@ const { gql } = require('apollo-server-express')
 
 // Type definitions define the "shape" of your data and specify
 // which ways the data can be fetched from the GraphQL server.
-const typeDefs = gql`
+export const typeDefs = gql`
   type InitData {
     width: String
     height: String
@@ -73,4 +73,3 @@ const typeDefs = gql`
     saveAnalytics(analyticsInput: AnalyticsInput): Analytics
   }
 `
-module.exports = typeDefs
