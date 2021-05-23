@@ -26,7 +26,7 @@ const app = express()
 // all environments
 // app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, '/views'))
-app.set('view engine', 'pug')
+app.set('view engine', 'ejs')
 
 /**
  * @description Enable CORS for ExpressJS
@@ -51,22 +51,24 @@ app.use(
     cookie: { secure: false, maxAge: 21600000 },
   })
 )
-app.use(express.static(path.join(__dirname, 'www')))
 app.use(nocache())
-// parse various different urlencoded
+app.use('/assets', express.static(path.join(__dirname, '..', 'assets')))
+app.use('/', express.static(path.join(__dirname, 'static')))
+
 app.use(
-  bodyParser.urlencoded({
-    type: 'application/x-www-form-urlencoded',
-    extended: true,
+  '/assets',
+  expressStaticGzip(path.join(__dirname, '..', 'assets'), {
+    enableBrotli: true,
+    customCompressions: [
+      {
+        encodingName: 'deflate',
+        fileExtension: 'js',
+      },
+    ],
+    orderPreference: ['br'],
   })
 )
-// parse various different custom JSON types as JSON
-app.use(bodyParser.json({ type: 'application/json' }))
-// parse some custom thing into a Buffer
-app.use(bodyParser.raw({ type: 'application/vnd.custom-type' }))
-// parse an HTML body as a string
-app.use(bodyParser.text({ type: 'text/*' }))
-app.use('/', express.static(path.join(__dirname, 'static')))
+
 getConnectedMogoose()
 
 const context = (headers, secrets) => {

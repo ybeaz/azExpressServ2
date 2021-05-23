@@ -1,5 +1,5 @@
 {
-  "name": "azExpressServ",
+  "name": "az-express-serv",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -11,9 +11,9 @@
     "serve": "NODE_ENV=development nodemon --trace-warnings --trace-deprecation --exec ./dist/index.js",
     "build+serve": "yarn build && yarn serve",
     "start": "NODE_ENV=production nodemon ./index.js",
-    "dev:start": "open-cli http://localhost:8082/user/John/Smith & concurrently --kill-others --raw --success=first 'nodemon --config nodemon.config.json --ext js,ts,tsc,.json'",
+    "dev:start": "open-cli http://127.0.0.1:8082/test-analytics & concurrently --kill-others --raw --success=first 'nodemon --config nodemon.config.json --ext js,ts,tsc,.json'",
     "dev": "concurrently --kill-others --raw --success=first 'nodemon --config nodemon.config.json --ext js,ts,tsc,.json'",
-    "startAndGraphQL": "opn http://localhost:8082/graphql & opn http://localhost:8082/user/John/Smith & node index.js",
+    "startAndGraphQL": "opn http://127.0.0.1:8082/graphql & opn http://127.0.0.1:8082/test-analytics & node index.js",
     "dev2": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -29,6 +29,7 @@
     "concurrently": "^6.1.0",
     "cookie-parser": "^1.4.4",
     "cors": "^2.8.5",
+    "ejs": "^3.1.6",
     "express": "^4.16.4",
     "express-session": "^1.16.1",
     "express-static-gzip": "^2.1.1",

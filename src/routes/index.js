@@ -1,27 +1,23 @@
-const router = require("express").Router();
+const router = require('express').Router()
 
-// Test URL for Hello World
-router.get("/user/:first?/:second?", (req, res) => {
-  const first = req.params.first ? req.params.first : "";
-  const second = req.params.second ? req.params.second : "";
+router.get('/test-analytics', (req, res) => {
+  res.render('testAnalytics', {})
+})
 
-  const queryJson = JSON.stringify(req.query);
-  const paramsJson = JSON.stringify(req.params);
-
-  // console.info('app.get', first, ' ', second, ' [params]', paramsJson, ' [query]', queryJson, ' [ip]', req.ip)
-  const h1 = "Hi " + first + " " + second + "!";
-  const p1 =
-    'This server uses a <a href="https://pugjs.org/api/getting-started.html" target="_blank">pug template</a> for the html output';
-  const p2 =
-    "This sever supports API get requests with query parameters " + queryJson;
-  const f1 = "For support, please, call +1 650 7 410014";
-  res.render("hello_world", { title: "Hey", h1, p1, p2, f1 });
+router.get('/test', (req, res) => {
+  res.render('testView', {
+    title: 'Test page',
+    h1: 'Hello World!',
+    p1: 'This server uses a <a href="https://www.npmjs.com/package/ejs" target="_blank">ejs template</a> for the html output',
+    p2: 'This sever supports API get requests with query parameters ',
+    f1: 'For support, please, call +1 650 7 410014',
+  })
   // res.send('Hello World')
-});
+})
 
 // To do
-router.post("/url", (req, res, next) => {
+router.post('/url', (req, res, next) => {
   // your code
-});
+})
 
-module.exports = router;
+module.exports = router
