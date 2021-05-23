@@ -14,11 +14,6 @@ const typeDefs = gql`
     ip: String
   }
 
-  type Topic {
-    name: String
-    pathname: String
-  }
-
   type Event {
     type: String
     name: String
@@ -33,7 +28,6 @@ const typeDefs = gql`
     dateCreate: Float
     dateUpdate: Float
     initData: InitData
-    topics: [Topic]
     events: [Event]
   }
 
@@ -59,11 +53,6 @@ const typeDefs = gql`
     referrer: String
   }
 
-  input TopicInput {
-    name: String
-    pathname: String
-  }
-
   input EventInput {
     type: String
     name: String
@@ -76,7 +65,6 @@ const typeDefs = gql`
     analyticsID: String
     hash256: String
     initData: InitDataInput
-    topic: TopicInput
     event: EventInput
   }
 

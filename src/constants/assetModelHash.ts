@@ -1,1 +1,1 @@
-export const ASSET_MODEL_HASH = ['initData', 'topic', 'event']
+export const ASSET_MODEL_HASH = ['initData', 'event']

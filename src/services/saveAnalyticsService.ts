@@ -13,7 +13,6 @@ export const saveAnalyticsService: Function = async (
     analyticsID: analyticsIDInput,
     hash256: hash256Input,
     initData: initDataInput,
-    topic: topicInput,
     event: eventInput,
   } = analyticsInput
 
@@ -26,11 +25,7 @@ export const saveAnalyticsService: Function = async (
 
     const resFound0 = resFound && resFound[0] ? resFound[0] : {}
 
-    const {
-      analyticsID: analyticsIDFound,
-      topics = [],
-      events = [],
-    } = resFound0
+    const { analyticsID: analyticsIDFound, events = [] } = resFound0
 
     let reqCase: string
     let set: any = {}
@@ -50,19 +45,6 @@ export const saveAnalyticsService: Function = async (
         initData: initDataInput,
       }
       reqCase = 'initData'
-    }
-
-    /**
-     * @description Case II. Update topics
-     */
-    if (analyticsIDInput && analyticsIDFound && topicInput) {
-      analyticsID = analyticsIDInput
-
-      set = {
-        ...set,
-        topics: [topicInput, ...topics],
-      }
-      reqCase = 'topics'
     }
 
     /**
@@ -101,7 +83,6 @@ export const saveAnalyticsService: Function = async (
       dateCreate,
       dateUpdate,
       initData: initDateNext = {},
-      topics: topicsNext = {},
       events: eventsNext = {},
     } = resFoundNext[0]
 
@@ -111,7 +92,6 @@ export const saveAnalyticsService: Function = async (
       dateCreate,
       dateUpdate,
       initData: initDateNext,
-      topics: topicsNext,
       events: eventsNext,
     }
   } catch (error) {
