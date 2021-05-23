@@ -25,6 +25,6 @@ export interface IAnalyticsInput {
   analyticsID?: string
   hash256?: string
   initData?: IInitData
-  topic?: ITopic
   event?: IEvent
+  ip?: string
 }

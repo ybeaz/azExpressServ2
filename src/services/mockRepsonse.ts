@@ -12,20 +12,6 @@ export const mockResponse: any[] = [
       href: 'String',
       referrer: 'String',
     },
-    topics: [
-      {
-        name: 'String',
-        pathname: 'String',
-      },
-      {
-        name: 'String',
-        pathname: 'String',
-      },
-      {
-        name: 'String',
-        pathname: 'String',
-      },
-    ],
     events: [
       {
         type: 'String',
@@ -54,20 +40,6 @@ export const mockResponse: any[] = [
       href: 'String',
       referrer: 'String',
     },
-    topics: [
-      {
-        name: 'String',
-        pathname: 'String',
-      },
-      {
-        name: 'String',
-        pathname: 'String',
-      },
-      {
-        name: 'String',
-        pathname: 'String',
-      },
-    ],
     events: [
       {
         type: 'String',

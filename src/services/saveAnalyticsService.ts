@@ -12,6 +12,7 @@ export const saveAnalyticsService: Function = async (
   let {
     analyticsID: analyticsIDInput,
     hash256: hash256Input,
+    ip,
     initData: initDataInput,
     event: eventInput,
   } = analyticsInput
@@ -42,7 +43,7 @@ export const saveAnalyticsService: Function = async (
         ...set,
         analyticsID,
         dateCreate: dateCurrent,
-        initData: initDataInput,
+        initData: { ...initDataInput, ip },
       }
       reqCase = 'initData'
     }
