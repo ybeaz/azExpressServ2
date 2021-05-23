@@ -15,11 +15,11 @@ export const getAnalyticsService: Function = async (
       .find(
         {
           dateCreate: { $gte: dateFrom, $lte: dateTo },
-          dateUpdate: { $gte: dateFrom, $lte: dateTo },
         },
         { _id: 0, __v: 0 }
       )
       .exec()
+
     return resFound
   } catch (error) {
     getErrorInfo(error)

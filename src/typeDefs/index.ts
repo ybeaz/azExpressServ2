@@ -23,12 +23,7 @@ const typeDefs = gql`
     type: String
     name: String
     value: String
-    pathname: String
-  }
-
-  type Target {
-    level: String
-    name: String
+    level: Int
     pathname: String
   }
 
@@ -40,7 +35,6 @@ const typeDefs = gql`
     initData: InitData
     topics: [Topic]
     events: [Event]
-    targets: [Target]
   }
 
   # The "Query" type is for Reading
@@ -74,12 +68,7 @@ const typeDefs = gql`
     type: String
     name: String
     value: String
-    pathname: String
-  }
-
-  input TargetInput {
     level: Int
-    name: String
     pathname: String
   }
 
@@ -89,7 +78,6 @@ const typeDefs = gql`
     initData: InitDataInput
     topic: TopicInput
     event: EventInput
-    target: TargetInput
   }
 
   # A "Mutation" type is for Creating, Updating and Deleting

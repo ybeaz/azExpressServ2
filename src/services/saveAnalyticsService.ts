@@ -1,21 +1,21 @@
 import { nanoid } from 'nanoid'
 
+import { IAnalyticsInput } from '../interfaces/IAnalyticsInput'
 import { getErrorInfo } from '../shared/getErrorInfo'
 import { getUniqArrBy } from '../shared/getUniqArrBy'
 import { models } from '../models/index.models'
 import { getAssetHash } from '../shared/getAssetHash'
 
-export const saveAnalyticsService: Function = async dataInput => {
+export const saveAnalyticsService: Function = async (
+  analyticsInput: IAnalyticsInput
+): Promise<any> => {
   let {
-    analyticsInput: {
-      analyticsID: analyticsIDInput,
-      hash256: hash256Input,
-      initData: initDataInput,
-      topic: topicInput,
-      event: eventInput,
-      target: targetInput,
-    },
-  } = dataInput
+    analyticsID: analyticsIDInput,
+    hash256: hash256Input,
+    initData: initDataInput,
+    topic: topicInput,
+    event: eventInput,
+  } = analyticsInput
 
   try {
     const resFound =
@@ -30,14 +30,13 @@ export const saveAnalyticsService: Function = async dataInput => {
       analyticsID: analyticsIDFound,
       topics = [],
       events = [],
-      targets = [],
     } = resFound0
 
     let reqCase: string
-    let set: any
+    let set: any = {}
     let analyticsID: string
     const dateCurrent: number = +new Date()
-    const hash256 = getAssetHash(dataInput)
+    const hash256 = getAssetHash(analyticsInput)
 
     /**
      * @description Case I. Initial data request
@@ -45,6 +44,7 @@ export const saveAnalyticsService: Function = async dataInput => {
     if (!analyticsIDInput && initDataInput) {
       analyticsID = nanoid()
       set = {
+        ...set,
         analyticsID,
         dateCreate: dateCurrent,
         initData: initDataInput,
@@ -59,6 +59,7 @@ export const saveAnalyticsService: Function = async dataInput => {
       analyticsID = analyticsIDInput
 
       set = {
+        ...set,
         topics: [topicInput, ...topics],
       }
       reqCase = 'topics'
@@ -70,20 +71,10 @@ export const saveAnalyticsService: Function = async dataInput => {
     if (analyticsIDInput && analyticsIDFound && eventInput) {
       analyticsID = analyticsIDInput
       set = {
+        ...set,
         events: [eventInput, ...events],
       }
       reqCase = 'events'
-    }
-
-    /**
-     * @description Case IV. Update targets
-     */
-    if (analyticsIDInput && analyticsIDFound && targetInput) {
-      analyticsID = analyticsIDInput
-      set = {
-        targets: [targetInput, ...targets],
-      }
-      reqCase = 'targets'
     }
 
     /**
@@ -112,7 +103,6 @@ export const saveAnalyticsService: Function = async dataInput => {
       initData: initDateNext = {},
       topics: topicsNext = {},
       events: eventsNext = {},
-      targets: targetsNext = {},
     } = resFoundNext[0]
 
     return {
@@ -123,7 +113,6 @@ export const saveAnalyticsService: Function = async dataInput => {
       initData: initDateNext,
       topics: topicsNext,
       events: eventsNext,
-      targets: targetsNext,
     }
   } catch (error) {
     getErrorInfo(error)

@@ -1,5 +1,3 @@
-const { MongoClient } = require('mongodb')
-
 import { getAnalyticsService } from '../services/getAnalyticsService'
 import { saveAnalyticsService } from '../services/saveAnalyticsService'
 
@@ -12,8 +10,8 @@ const resolvers = {
      */
     saveAnalytics: (parent, args, context, info) => {
       const { ip } = context
-      const dataInput = { ...args, ip }
-      return saveAnalyticsService(dataInput)
+      const { analyticsInput = {} } = { ...args }
+      return saveAnalyticsService(analyticsInput)
     },
   },
   Query: {

@@ -40,18 +40,6 @@ export const mockResponse: any[] = [
         pathname: 'String',
       },
     ],
-    targets: [
-      {
-        level: '1',
-        name: 'String',
-        pathname: 'String',
-      },
-      {
-        level: '1',
-        name: 'String',
-        pathname: 'String',
-      },
-    ],
   },
   {
     analyticsID: '2_TCyFYolEryXOnKqqTAbTw',
@@ -91,18 +79,6 @@ export const mockResponse: any[] = [
         type: 'String',
         name: 'String',
         value: 'String',
-        pathname: 'String',
-      },
-    ],
-    targets: [
-      {
-        level: '1',
-        name: 'String',
-        pathname: 'String',
-      },
-      {
-        level: '1',
-        name: 'String',
         pathname: 'String',
       },
     ],

@@ -2,7 +2,6 @@ import mongoose from 'mongoose'
 
 import { Topic } from './Topic'
 import { Event } from './Event'
-import { Target } from './Target'
 
 // eslint-disable-next-line import/prefer-default-export
 export const Analytics = new mongoose.Schema({
@@ -32,10 +31,6 @@ export const Analytics = new mongoose.Schema({
   },
   events: {
     type: [Event],
-    default: undefined,
-  },
-  targets: {
-    type: [Target],
     default: undefined,
   },
 })
