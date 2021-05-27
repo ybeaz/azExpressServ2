@@ -28,7 +28,6 @@ export const saveAnalyticsService: Function = async (
 
     const { analyticsID: analyticsIDFound, events = [] } = resFound0
 
-    let reqCase: string
     let set: any = {}
     let analyticsID: string
     const dateCurrent: number = +new Date()
@@ -45,7 +44,6 @@ export const saveAnalyticsService: Function = async (
         dateCreate: dateCurrent,
         initData: { ...initDataInput, ip },
       }
-      reqCase = 'initData'
     }
 
     /**
@@ -58,7 +56,6 @@ export const saveAnalyticsService: Function = async (
         ...set,
         events: [event, ...events],
       }
-      reqCase = 'events'
     }
 
     /**
