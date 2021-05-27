@@ -34,7 +34,11 @@ export const typeDefs = gql`
 
   # The "Query" type is for Reading
   type Query {
-    getAnalytics(dateFrom: Float, dateTo: Float): [Analytics]
+    getAnalytics(
+      dateFrom: Float
+      dateTo: Float
+      excludeIp: [String]
+    ): [Analytics]
   }
 
   type SaveStatus {

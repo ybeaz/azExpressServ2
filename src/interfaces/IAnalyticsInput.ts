@@ -28,3 +28,9 @@ export interface IAnalyticsInput {
   event?: IEvent
   ip?: string
 }
+
+export interface IGetAnalyticsInput {
+  dateFrom: number
+  dateTo: number
+  excludeIp?: string[]
+}

@@ -1,20 +1,18 @@
+import { IGetAnalyticsInput } from '../interfaces/IAnalyticsInput'
 import { getErrorInfo } from '../shared/getErrorInfo'
 import { models } from '../models/index.models'
-interface IDataInput {
-  dateFrom: number
-  dateTo: number
-}
 
 export const getAnalyticsService: Function = async (
-  dataInput: IDataInput
+  dataInput: IGetAnalyticsInput
 ): Promise<any[]> => {
-  const { dateFrom, dateTo } = dataInput
+  const { dateFrom, dateTo, excludeIp } = dataInput
 
   try {
     const resFound = await models.analytics
       .find(
         {
           dateCreate: { $gte: dateFrom, $lte: dateTo },
+          'initData.ip': { $nin: excludeIp },
         },
         { _id: 0, __v: 0 }
       )
