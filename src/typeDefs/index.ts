@@ -3,10 +3,20 @@ const { gql } = require('apollo-server-express')
 // Type definitions define the "shape" of your data and specify
 // which ways the data can be fetched from the GraphQL server.
 export const typeDefs = gql`
+  type SearchProps {
+    utm_source: String
+    utm_medium: String
+    utm_campaign: String
+    utm_content: String
+    utm_term: String
+    yclid: String
+  }
+
   type InitData {
     width: String
     height: String
     search: String
+    searchProps: SearchProps
     pathname: String
     hostname: String
     href: String

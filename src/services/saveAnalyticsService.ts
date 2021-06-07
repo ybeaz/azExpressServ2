@@ -1,5 +1,6 @@
 import { nanoid } from 'nanoid'
 
+import { getParsedUrlQuery } from '../shared/getParsedUrlQuery'
 import { IAnalyticsInput } from '../interfaces/IAnalyticsInput'
 import { getErrorInfo } from '../shared/getErrorInfo'
 import { getUniqArrBy } from '../shared/getUniqArrBy'
@@ -37,12 +38,16 @@ export const saveAnalyticsService: Function = async (
      * @description Case I. Initial data request
      */
     if (!analyticsIDInput && initDataInput) {
+      const { search } = initDataInput
+      const searchProps = getParsedUrlQuery(search)
+      console.info('saveAnalyticsService [43]', { searchProps, search })
+
       analyticsID = nanoid()
       set = {
         ...set,
         analyticsID,
         dateCreate: dateCurrent,
-        initData: { ...initDataInput, ip },
+        initData: { ...initDataInput, searchProps, ip },
       }
     }
 
