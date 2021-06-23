@@ -5,14 +5,17 @@ import { models } from '../models/index.models'
 export const getAnalyticsService: Function = async (
   dataInput: IGetAnalyticsInput
 ): Promise<any[]> => {
-  const { dateFrom, dateTo, excludeIp } = dataInput
-
+  const { dateFrom, dateTo, excludeIPs, matchesUrlPattern } = dataInput
   try {
     const resFound = await models.analytics
       .find(
         {
           dateCreate: { $gte: dateFrom, $lte: dateTo },
-          'initData.ip': { $nin: excludeIp },
+          'initData.ip': { $nin: excludeIPs },
+          'initData.href': {
+            $regex: new RegExp(matchesUrlPattern),
+            $options: 'i',
+          },
         },
         { _id: 0, __v: 0 }
       )

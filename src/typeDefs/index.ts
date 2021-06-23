@@ -47,7 +47,8 @@ export const typeDefs = gql`
     getAnalytics(
       dateFrom: Float
       dateTo: Float
-      excludeIp: [String]
+      excludeIPs: [String]
+      matchesUrlPattern: String
     ): [Analytics]
   }
 

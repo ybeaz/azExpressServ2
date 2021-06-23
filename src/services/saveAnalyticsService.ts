@@ -40,7 +40,6 @@ export const saveAnalyticsService: Function = async (
     if (!analyticsIDInput && initDataInput) {
       const { search } = initDataInput
       const searchProps = getParsedUrlQuery(search)
-      console.info('saveAnalyticsService [43]', { searchProps, search })
 
       analyticsID = nanoid()
       set = {

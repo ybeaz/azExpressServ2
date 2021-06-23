@@ -32,5 +32,6 @@ export interface IAnalyticsInput {
 export interface IGetAnalyticsInput {
   dateFrom: number
   dateTo: number
-  excludeIp?: string[]
+  excludeIPs?: string[]
+  matchesUrlPattern?: string
 }
