@@ -1,5 +1,9 @@
 const router = require('express').Router()
 
+router.get('/', (req, res) => {
+  res.render('rootView', {})
+})
+
 router.get('/test-analytics', (req, res) => {
   res.render('testAnalytics', {})
 })

@@ -6,6 +6,7 @@ export const getAnalyticsService: Function = async (
   dataInput: IGetAnalyticsInput
 ): Promise<any[]> => {
   const { dateFrom, dateTo, excludeIPs, urlPattern } = dataInput
+
   try {
     const resFound = await models.analytics
       .find(
